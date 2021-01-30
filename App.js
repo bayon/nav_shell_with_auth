@@ -59,7 +59,7 @@ function tabNavigator() {
     </Tab.Navigator>
   );
 }
-
+//-----------------------------------------------------------------------------------
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -70,9 +70,15 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("Register")}
         title="Register"
       />
+      <Text>upon successful login go to Tabs ? </Text>
+      <Button
+        onPress={() => navigation.navigate("Tabs")}
+        title="Tabs"
+      />
     </View>
   );
 }
+//-----------------------------------------------------------------------------------
 
 function NotificationsScreen({ navigation }) {
   return (
@@ -189,7 +195,7 @@ export default function App() {
             component={notificationsNavigator}
           />
         )}
-        {isAuthorized && <Drawer.Screen name="Tabs" component={tabNavigator} />}
+         <Drawer.Screen name="Tabs" component={tabNavigator} />
         {isAuthorized && (
           <Drawer.Screen name="Logout" component={logoutNavigator} />
         )}
