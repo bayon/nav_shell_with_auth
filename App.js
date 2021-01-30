@@ -1,13 +1,11 @@
 //
 import { MaterialIcons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-
-
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 const HeaderLeft = () => {
   const navigation = useNavigation();
@@ -29,17 +27,15 @@ const HeaderRight = () => {
       name="login"
       size={24}
       onPress={() => {
-        navigation.navigate('Login');
-        
+        navigation.navigate("Home");
       }}
     />
   );
 };
- 
 
 function RedScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Red!</Text>
     </View>
   );
@@ -47,7 +43,7 @@ function RedScreen() {
 
 function GreenScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Green!</Text>
     </View>
   );
@@ -55,22 +51,24 @@ function GreenScreen() {
 
 const Tab = createBottomTabNavigator();
 
-function tabNavigator(){
-  return(
+function tabNavigator() {
+  return (
     <Tab.Navigator>
-    <Tab.Screen name="Red" component={redNavigator} />
-    <Tab.Screen name="Green" component={greenNavigator} />
-  </Tab.Navigator>
-  )
+      <Tab.Screen name="Red" component={redNavigator} />
+      <Tab.Screen name="Green" component={greenNavigator} />
+    </Tab.Navigator>
+  );
 }
-//
+
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Splash Page</Text>
+      <Text>Login Form Here</Text>
+      <Text>Not Signed up yet?</Text>
       <Button
-        onPress={() => navigation.navigate('Notifications')}
-        title="Go to notifications"
+        onPress={() => navigation.navigate("Register")}
+        title="Register"
       />
     </View>
   );
@@ -78,17 +76,8 @@ function HomeScreen({ navigation }) {
 
 function NotificationsScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Notification Screen</Text>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
-}
-
-function LoginScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Login Screen</Text>
       <Button onPress={() => navigation.goBack()} title="Go back home" />
     </View>
   );
@@ -96,9 +85,18 @@ function LoginScreen({ navigation }) {
 
 function LogoutScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Logout Screen</Text>
-      
+    </View>
+  );
+}
+
+function RegisterScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Register Form</Text>
+      <Text>Already Registered?</Text>
+      <Button onPress={() => navigation.navigate("Home")} title="Login" />
     </View>
   );
 }
@@ -145,48 +143,59 @@ function homeNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerLeft: () => <HeaderLeft />,
-        headerRight: () => <HeaderRight />
+        headerRight: () => <HeaderRight />,
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home/Login" component={HomeScreen} />
     </Stack.Navigator>
   );
 }
-function loginNavigator() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerLeft: () => <HeaderLeft />,
-        headerRight: () => <HeaderRight />
-      }}
-    >
-      <Stack.Screen name="Login" component={LoginScreen} />
-    </Stack.Navigator>
-  );
-}
+
 function logoutNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
         headerLeft: null,
-        headerRight: () => <HeaderRight />
+        headerRight: () => <HeaderRight />,
       }}
     >
       <Stack.Screen name="Logout" component={LogoutScreen} />
     </Stack.Navigator>
   );
 }
+function registerNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerLeft: null,
+        headerRight: null,
+      }}
+    >
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
+  );
+}
 //
 
 export default function App() {
+  const isAuthorized = false;
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={homeNavigator} />
-        <Drawer.Screen name="Notifications" component={notificationsNavigator} />
-        <Drawer.Screen name="Tabs" component={tabNavigator} />
-        <Drawer.Screen name="Login" component={loginNavigator} />
-        <Drawer.Screen name="Logout" component={logoutNavigator} />
+        {isAuthorized && (
+          <Drawer.Screen
+            name="Notifications"
+            component={notificationsNavigator}
+          />
+        )}
+        {isAuthorized && <Drawer.Screen name="Tabs" component={tabNavigator} />}
+        {isAuthorized && (
+          <Drawer.Screen name="Logout" component={logoutNavigator} />
+        )}
+        
+          <Drawer.Screen name="Register" component={registerNavigator} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
   );
@@ -195,8 +204,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
