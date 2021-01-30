@@ -1,8 +1,37 @@
+//
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
+function RedScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Red!</Text>
+    </View>
+  );
+}
+
+function GreenScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Green!</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+function tabNavigator(){
+  return(
+    <Tab.Navigator>
+    <Tab.Screen name="Red" component={RedScreen} />
+    <Tab.Screen name="Green" component={GreenScreen} />
+  </Tab.Navigator>
+  )
+}
+//
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -32,6 +61,7 @@ export default function App() {
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        <Drawer.Screen name="Tabs" component={tabNavigator} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
