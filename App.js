@@ -47,7 +47,7 @@ function HomeScreen({ navigation }) {
 function NotificationsScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Navigation Screen</Text>
+      <Text>Notification Screen</Text>
       <Button onPress={() => navigation.goBack()} title="Go back home" />
     </View>
   );
