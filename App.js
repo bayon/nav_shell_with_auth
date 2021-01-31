@@ -4,8 +4,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
+import { Provider, useDispatch, useSelector } from "react-redux";
+//import * as newsAction from "./redux/actions/newsAction";
+import * as statusAction from "./redux/actions/statusAction";
+import store from "./redux/store";
+
 const HeaderLeft = () => {
   const navigation = useNavigation();
   return (
@@ -70,10 +75,7 @@ function HomeScreen({ navigation }) {
         title="Register"
       />
       <Text>upon successful login go to Tabs ? </Text>
-      <Button
-        onPress={() => navigation.navigate("Tabs")}
-        title="Tabs"
-      />
+      <Button onPress={() => navigation.navigate("Tabs")} title="Tabs" />
     </View>
   );
 }
@@ -144,6 +146,23 @@ function notificationsNavigator() {
   );
 }
 function homeNavigator() {
+
+  console.log("PROCESS ENVIRONMENTS:")
+  console.log(process.env)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(statusAction.fetchStatus())
+  },[dispatch])
+   //const auth = useSelector()
+
+//    const articles = useSelector(state => state.news.articles)
+// console.log('API _articles:',articles)
+
+    const auth = useSelector(state => state.status.authorized)
+    const sentence = useSelector(state => state.status.sentence) 
+ 
+   console.log(" STATUS:DATA: auth and sentence:",auth, sentence)
+   
   return (
     <Stack.Navigator
       screenOptions={{
@@ -184,25 +203,29 @@ function registerNavigator() {
 
 export default function App() {
   const isAuthorized = false;
+
+ 
+
   return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={homeNavigator} />
-        {isAuthorized && (
-          <Drawer.Screen
-            name="Notifications"
-            component={notificationsNavigator}
-          />
-        )}
-         <Drawer.Screen name="Tabs" component={tabNavigator} />
-        {isAuthorized && (
-          <Drawer.Screen name="Logout" component={logoutNavigator} />
-        )}
-        
+    <Provider store={store}>
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Home" component={homeNavigator} />
+          {isAuthorized && (
+            <Drawer.Screen
+              name="Notifications"
+              component={notificationsNavigator}
+            />
+          )}
+          <Drawer.Screen name="Tabs" component={tabNavigator} />
+          {isAuthorized && (
+            <Drawer.Screen name="Logout" component={logoutNavigator} />
+          )}
+
           <Drawer.Screen name="Register" component={registerNavigator} />
-        
-      </Drawer.Navigator>
-    </NavigationContainer>
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
