@@ -9,7 +9,6 @@ import store from "./redux/store";
 import GreenScreen from "./screens/GreenScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LogoutScreen from './screens/LogoutScreen';
-import NotificationsScreen from "./screens/NotificationsScreen";
 import RedScreen from "./screens/RedScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 const Drawer = createDrawerNavigator();
@@ -91,17 +90,7 @@ function greenNavigator() {
     </Stack.Navigator>
   );
 }
-function notificationsNavigator() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerLeft: () => <HeaderLeft />,
-      }}
-    >
-      <Stack.Screen name="Notifications" component={NotificationsScreen} />
-    </Stack.Navigator>
-  );
-}
+ 
 function logoutNavigator() {
   return (
     <Stack.Navigator
@@ -130,7 +119,6 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen name="Home" component={homeNavigator} />
-          <Drawer.Screen name="Notifications" component={notificationsNavigator}/>
           <Drawer.Screen name="Tabs" component={tabNavigator} />
           <Drawer.Screen name="Login" component={homeNavigator} />
           <Drawer.Screen name="Logout" component={logoutNavigator} />
