@@ -14,16 +14,16 @@ function LogoutScreen({navigation}) {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
        
       <Button 
-      title="Logout"
+      title="Are you sure you want to Logout?"
       onPress={ () => {
-        console.log("poo")
+        
         dispatch(authAction.logoutUser())
         .then(async (result) => {
           console.log(result);
           try {
             await AsyncStorage.removeItem("token");
             console.log("success ? ")
-            //navData.navigation.navigate("Tabs");
+            navigation.navigate("Home");
           } catch (error) {
             console.log(error);
           }
