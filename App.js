@@ -1,4 +1,3 @@
-//
 import { MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -7,7 +6,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React, { useEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { Provider, useDispatch, useSelector } from "react-redux";
-//import * as newsAction from "./redux/actions/newsAction";
 import * as statusAction from "./redux/actions/statusAction";
 import store from "./redux/store";
 
@@ -63,9 +61,41 @@ function tabNavigator() {
     </Tab.Navigator>
   );
 }
+
+
+
+
 //-----------------------------------------------------------------------------------
-function HomeScreen({ navigation }) {
+// DATA: in the homeNavigator()
+
+function homeNavigator() {
+  
   return (
+    <Stack.Navigator
+      screenOptions={{
+        headerLeft: () => <HeaderLeft />,
+        headerRight: () => <HeaderRight />,
+      }}
+    >
+      <Stack.Screen name="Home/Login" component={HomeScreen}/>
+    </Stack.Navigator>
+  );
+}
+
+function HomeScreen({ navigation}) {
+   //--- instead of PASSING data from the navigator , FETCH it from the Screen.
+   const dispatch = useDispatch();
+   useEffect(() => {
+     dispatch(statusAction.fetchStatus());
+   }, [dispatch]);
+ 
+   var auth = useSelector((state) => state.status.authorized);
+  
+   //TEST: auth = true;
+   //IF yes Use to show/hide TABS button OR BETTER redirect to TABS: 
+   console.log("App.js HomeScreen(): auth:",auth)
+  return (
+    
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Splash Page</Text>
       <Text>Login Form Here</Text>
@@ -74,12 +104,17 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("Register")}
         title="Register"
       />
-      <Text>upon successful login go to Tabs ? </Text>
-      <Button onPress={() => navigation.navigate("Tabs")} title="Tabs" />
+      <Text>upon successful login go to Tabs ?  </Text>
+      { auth &&   <Button onPress={() => navigation.navigate("Tabs")} title="Tabs" /> }
+     
     </View>
   );
 }
 //-----------------------------------------------------------------------------------
+
+
+
+
 
 function NotificationsScreen({ navigation }) {
   return (
@@ -145,35 +180,6 @@ function notificationsNavigator() {
     </Stack.Navigator>
   );
 }
-function homeNavigator() {
-
-  console.log("PROCESS ENVIRONMENTS:")
-  console.log(process.env)
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(statusAction.fetchStatus())
-  },[dispatch])
-   //const auth = useSelector()
-
-//    const articles = useSelector(state => state.news.articles)
-// console.log('API _articles:',articles)
-
-    const auth = useSelector(state => state.status.authorized)
-    const sentence = useSelector(state => state.status.sentence) 
- 
-   console.log(" STATUS:DATA: auth and sentence:",auth, sentence)
-   
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerLeft: () => <HeaderLeft />,
-        headerRight: () => <HeaderRight />,
-      }}
-    >
-      <Stack.Screen name="Home/Login" component={HomeScreen} />
-    </Stack.Navigator>
-  );
-}
 
 function logoutNavigator() {
   return (
@@ -199,13 +205,13 @@ function registerNavigator() {
     </Stack.Navigator>
   );
 }
-//
+ 
+
 
 export default function App() {
   const isAuthorized = false;
 
- 
-
+   
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -217,17 +223,21 @@ export default function App() {
               component={notificationsNavigator}
             />
           )}
-          <Drawer.Screen name="Tabs" component={tabNavigator} />
+          {/* <Drawer.Screen name="Tabs" component={tabNavigator} /> */}
           {isAuthorized && (
             <Drawer.Screen name="Logout" component={logoutNavigator} />
           )}
-
+        <Drawer.Screen name="Login" component={homeNavigator} />
           <Drawer.Screen name="Register" component={registerNavigator} />
+          
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
   );
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {
