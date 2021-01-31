@@ -14,6 +14,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         user: action.payload,
+        authorized: true
       };
       break;
     case LOGIN_USER_SUCCESS:
