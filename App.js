@@ -3,11 +3,19 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import * as statusAction from "./redux/actions/statusAction";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Provider } from "react-redux";
 import store from "./redux/store";
+import GreenScreen from "./screens/GreenScreen";
+import HomeScreen from "./screens/HomeScreen";
+import LogoutScreen from './screens/LogoutScreen';
+import NotificationsScreen from "./screens/NotificationsScreen";
+import RedScreen from "./screens/RedScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const HeaderLeft = () => {
   const navigation = useNavigation();
@@ -35,41 +43,7 @@ const HeaderRight = () => {
   );
 };
 
-function RedScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Red!</Text>
-    </View>
-  );
-}
-
-function GreenScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Green!</Text>
-    </View>
-  );
-}
-
-const Tab = createBottomTabNavigator();
-
-function tabNavigator() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Red" component={redNavigator} />
-      <Tab.Screen name="Green" component={greenNavigator} />
-    </Tab.Navigator>
-  );
-}
-
-
-
-
-//-----------------------------------------------------------------------------------
-// DATA: in the homeNavigator()
-
 function homeNavigator() {
-  
   return (
     <Stack.Navigator
       screenOptions={{
@@ -77,75 +51,23 @@ function homeNavigator() {
         headerRight: () => <HeaderRight />,
       }}
     >
-      <Stack.Screen name="Home/Login" component={HomeScreen}/>
+      <Stack.Screen name="Home/Login" component={HomeScreen} />
     </Stack.Navigator>
   );
 }
 
-function HomeScreen({ navigation}) {
-   //--- instead of PASSING data from the navigator , FETCH it from the Screen.
-   const dispatch = useDispatch();
-   useEffect(() => {
-     dispatch(statusAction.fetchStatus());
-   }, [dispatch]);
- 
-   var auth = useSelector((state) => state.status.authorized);
-  
-   //TEST: auth = true;
-   //IF yes Use to show/hide TABS button OR BETTER redirect to TABS: 
-   console.log("App.js HomeScreen(): auth:",auth)
+function registerNavigator() {
   return (
-    
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Splash Page</Text>
-      <Text>Login Form Here</Text>
-      <Text>Not Signed up yet?</Text>
-      <Button
-        onPress={() => navigation.navigate("Register")}
-        title="Register"
-      />
-      <Text>upon successful login go to Tabs ?  </Text>
-      { auth &&   <Button onPress={() => navigation.navigate("Tabs")} title="Tabs" /> }
-     
-    </View>
+    <Stack.Navigator
+      screenOptions={{
+        headerLeft: null,
+        headerRight: null,
+      }}
+    >
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
   );
 }
-//-----------------------------------------------------------------------------------
-
-
-
-
-
-function NotificationsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Notification Screen</Text>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
-}
-
-function LogoutScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Logout Screen</Text>
-    </View>
-  );
-}
-
-function RegisterScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Register Form</Text>
-      <Text>Already Registered?</Text>
-      <Button onPress={() => navigation.navigate("Home")} title="Login" />
-    </View>
-  );
-}
-
-const Drawer = createDrawerNavigator();
-//sub navigators
-const Stack = createStackNavigator();
 
 function redNavigator() {
   return (
@@ -158,6 +80,7 @@ function redNavigator() {
     </Stack.Navigator>
   );
 }
+
 function greenNavigator() {
   return (
     <Stack.Navigator
@@ -180,64 +103,44 @@ function notificationsNavigator() {
     </Stack.Navigator>
   );
 }
-
 function logoutNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerLeft: null,
-        headerRight: () => <HeaderRight />,
+        headerLeft: () => <HeaderLeft />,
       }}
     >
       <Stack.Screen name="Logout" component={LogoutScreen} />
     </Stack.Navigator>
   );
 }
-function registerNavigator() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerLeft: null,
-        headerRight: null,
-      }}
-    >
-      <Stack.Screen name="Register" component={RegisterScreen} />
-    </Stack.Navigator>
-  );
-}
  
 
+function tabNavigator() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Red" component={redNavigator} />
+      <Tab.Screen name="Green" component={greenNavigator} />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
-  const isAuthorized = false;
-
-   
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen name="Home" component={homeNavigator} />
-          {isAuthorized && (
-            <Drawer.Screen
-              name="Notifications"
-              component={notificationsNavigator}
-            />
-          )}
-          {/* <Drawer.Screen name="Tabs" component={tabNavigator} /> */}
-          {isAuthorized && (
-            <Drawer.Screen name="Logout" component={logoutNavigator} />
-          )}
-        <Drawer.Screen name="Login" component={homeNavigator} />
+          <Drawer.Screen name="Notifications" component={notificationsNavigator}/>
+          <Drawer.Screen name="Tabs" component={tabNavigator} />
+          <Drawer.Screen name="Login" component={homeNavigator} />
+          <Drawer.Screen name="Logout" component={logoutNavigator} />
           <Drawer.Screen name="Register" component={registerNavigator} />
-          
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
   );
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {

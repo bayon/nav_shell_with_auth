@@ -4,6 +4,11 @@ export const REGISTER_USER_FAIL = "REGISTER_USER_FAIL";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const LOGIN_USER_FAIL = "LOGIN_USER_FAIL";
 
+export const LOGOUT_USER_SUCCESS = "LOGOUT_USER_SUCCESS";
+export const LOGOUT_USER_FAIL = "LOGOUT_USER_FAIL";
+
+
+
 //const BASE_URL = "http://localhost:3000/api";
 const BASE_URL = "https://nameless-refuge-42185.herokuapp.com";
 
@@ -39,6 +44,18 @@ export const registerUser = (authData) => {
 
   };
 };
+export const logoutUser = () => {
+  //console.log("how the hell is that?")
+  //console.log('dispatch:',dispatch)
+  // dispatch({
+  //   type: LOGOUT_USER_SUCCESS,
+  // });
+  return async (dispatch) => {
+    dispatch({
+        type: LOGOUT_USER_SUCCESS,
+        })
+  }
+}
 
 export const loginUser = (authData) => {
   const { email, password } = authData;
