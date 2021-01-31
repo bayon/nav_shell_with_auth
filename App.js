@@ -6,7 +6,6 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-
 const HeaderLeft = () => {
   const navigation = useNavigation();
   return (
