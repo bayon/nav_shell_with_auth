@@ -3,7 +3,9 @@ import React from "react";
 import { Button, Text, View } from "react-native";
 import { useDispatch } from 'react-redux';
 import * as authAction from "../redux/actions/authAction";
+import FormStyles from "./FormStyles";
 
+const styles = FormStyles;
 
 function LogoutScreen({navigation}) {
   const dispatch = useDispatch();
@@ -11,9 +13,9 @@ function LogoutScreen({navigation}) {
   //TODO: need to make auth action to set authorized to false...and remove token from storage.
   // Then offer direction back to login again.
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.container}>
       
-       <Text>Are you sure you want to Logout?</Text>
+       <Text style={styles.noticeText}>Are you sure you want to Logout?</Text>
       <Button 
       title="Logout"
       onPress={ () => {
@@ -31,8 +33,9 @@ function LogoutScreen({navigation}) {
         })
         .catch((err) => console.log(err));
       }
-      
+     
       }
+      style={styles.noticeButton}
       />
     </View>
   );

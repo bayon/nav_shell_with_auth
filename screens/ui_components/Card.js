@@ -14,26 +14,23 @@ const Card = (props) => {
   // );
   const defaultImage =
     "https://avatars.githubusercontent.com/u/4679115?s=460&v=4";
-    const url = props.linkURL;
+  const url = props.linkURL;
   return (
-    <View>
-
-   
-      <View style={styles.card}>
-        <View style={styles.imageWrapper}>
-          <Image
-            source={{ uri: props.image ? props.image : defaultImage }}
-            style={styles.image}
-            resizeMode='cover'
-          />
-        </View>
-        <View style={styles.titleWrapper}>
-          <Text style={styles.title}>
-            {props.title && props.title.length > 24
-              ? props.title.slice(0, 24) + "..."
-              : props.title}
-          </Text>
-          {/* <MaterialIcons
+    <View style={styles.card}>
+      <View style={styles.imageWrapper}>
+        <Image
+          source={{ uri: props.image ? props.image : defaultImage }}
+          style={styles.image}
+          resizeMode={props.resizeMode ? props.resizeMode : "cover"}
+        />
+      </View>
+      <View style={styles.titleWrapper}>
+        <Text style={styles.title}>
+          {props.title && props.title.length > 24
+            ? props.title.slice(0, 24) + "..."
+            : props.title}
+        </Text>
+        {/* <MaterialIcons
             name={ "favorite" }
             size={24}
             color="black"
@@ -41,29 +38,28 @@ const Card = (props) => {
               dispatch(newsAction.toggleFavorites(props.url));
             }}
           /> */}
-        </View>
-        <View style={styles.descriptionWrapper}>
-          <Text style={styles.description}>
-            {props.description && props.description.length > 100
-              ? props.description.slice(0, 100) + "..."
-              : props.description}
-          </Text>
-        </View>
-        <View style={styles.linkWrapper}>
+      </View>
+      <View style={styles.descriptionWrapper}>
+        <Text style={styles.description}>
+          {props.description && props.description.length > 300
+            ? props.description.slice(0, 300) + "..."
+            : props.description}
+        </Text>
+      </View>
+      <View style={styles.linkWrapper}>
         <Text
-        style={{ color: "blue" }}
-        onPress={(props) => {
-          // const url = "http://www.forteworks.com/roughest/";
-          if (Platform.OS == "web") {
-            window.open(url, "_blank");
-          } else {
-            Linking.openURL(url, "_blank");
-          }
-        }}
-      >
-        {props.linkName}
-      </Text>
-        </View>
+          style={{ color: "blue" }}
+          onPress={(props) => {
+            // const url = "http://www.forteworks.com/roughest/";
+            if (Platform.OS == "web") {
+              window.open(url, "_blank");
+            } else {
+              Linking.openURL(url, "_blank");
+            }
+          }}
+        >
+          {props.linkName}
+        </Text>
       </View>
     </View>
   );
@@ -72,7 +68,7 @@ const Card = (props) => {
 const styles = StyleSheet.create({
   imageWrapper: {
     width: "100%",
-    height: "60%",
+    height: "40%",
     borderTopLeftRadius: 10,
     overflow: "hidden",
   },
@@ -91,11 +87,15 @@ const styles = StyleSheet.create({
   linkWrapper: {
     height: "15%",
     paddingHorizontal: 15,
-    marginTop:15
+    marginTop: 15,
   },
   card: {
     backgroundColor: "#ffffff",
-    height: 300,
+    minHeight: 500,
+    display: "flex",
+    justifyContent:'space-between',
+    flexDirection: "column",
+    flex: 1,
     margin: 20,
     padding: 10,
     borderRadius: 10,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   title: {
     /*fontFamily: 'Ubuntu-Bold',*/
-      fontSize: 20
+    fontSize: 20,
   },
   description: {
     //fontFamily: 'Ubuntu',
@@ -121,5 +121,3 @@ const styles = StyleSheet.create({
 });
 
 export default Card;
-
-

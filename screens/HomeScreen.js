@@ -32,12 +32,13 @@ const HomeScreen = (navData) => {
   var auth = useSelector((state) => state.auth.authorized);
   if (auth) {
     return (
-      <View>
-        <Text>You are already logged in.</Text>
-        <Text>Do you want to log out?</Text>
+      <View style={styles.container}>
+        <Text style={styles.noticeText}>You are already logged in.</Text>
+        <Text style={styles.noticeText}>Do you want to log out?</Text>
         <Button
         onPress={() => navData.navigation.navigate("Logout")}
         title="Logout"
+        style={styles.noticeButton}
       />
       </View>
     );

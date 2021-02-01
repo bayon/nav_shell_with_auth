@@ -88,6 +88,12 @@ const FormStyles = StyleSheet.create({
       borderRadius: 10,
       borderWidth:1,
       borderColor:"#000000"
+    },
+    noticeText:{
+      margin:15
+    },
+    noticeButton:{
+      margin:15
     }
   });
 

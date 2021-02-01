@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 //const jwtDecode = require("jwt-decode");
 import jwt_decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import FormStyles from "./FormStyles";
 import Card from "./ui_components/Card";
@@ -42,74 +42,36 @@ const SkillsScreen = (props) => {
       </View>
     );
   }
-
+  const skillsDescription = `My primary focus is now on react-native. I've had ten years of experience with a variety of technology. Javascript, PHP, MySQL, javascript, css, Docker, GoLang, Swift, various frameworks, but now I believe it is time to really focus on one area. `
   return (
+    <ScrollView>
+       <Card
+        image=""
+        title="Skills"
+        description={skillsDescription}
+        linkName=""
+        linkURL=""
+      ></Card>
+      
+      <Card
+        image="http://www.forteworks.com/forteworks-16.9.19/games/images/spaceshooter.jpg"
+        title="Games"
+        description="A set of games created with Panda.js, which I customized to fit both the customer branding specifications and to hadnle gesture recognition."
+        linkName="Games"
+        linkURL="http://www.forteworks.com/forteworks-16.9.19/games/index-games.php"
+      ></Card>
 
-    <Card 
-    image="http://www.forteworks.com/forteworks-16.9.19/games/images/spaceshooter.jpg"
-    title="Games"
-    description="A set of games created using some library, I'll have to look it up, customized to fit branding of customer.Also modified for gesture recognition."
-    linkName="Estimation App"
-    linkURL="http://www.forteworks.com/roughest/"
-    
-    ></Card>
+      <Card
+        image="http://www.forteworks.com/forte_2017.5.14/img/rough_est.png"
+        title="Estimation App"
+        description="An app created with vanilla javascript that lets you calculate tasks and materials into an estimate of work."
+        linkName="Estimation App"
+        linkURL="http://www.forteworks.com/roughest/"
+      ></Card>
 
-
-    // <View style={styles.container}>
-    //   <Text style={styles.text}>
-    //     Skills Screen: Welcome {fullName ? fullName : ""}
-    //   </Text>
-    //   <Text>Skills</Text>
-    //   <Text
-    //     style={{ color: "blue" }}
-    //     onPress={() => {
-    //       const url =
-    //         "http://www.forteworks.com/forteworks-16.9.19/games/index-games.php";
-    //       if (Platform.OS == "web") {
-    //         window.open(url, "_blank");
-    //       } else {
-    //         Linking.openURL(url, "_blank");
-    //       }
-    //     }}
-    //   >
-    //     Games
-    //   </Text>
-
-    //   <Text
-    //     style={{ color: "blue" }}
-    //     onPress={() => {
-    //       const url = "http://www.forteworks.com/roughest/";
-    //       if (Platform.OS == "web") {
-    //         window.open(url, "_blank");
-    //       } else {
-    //         Linking.openURL(url, "_blank");
-    //       }
-    //     }}
-    //   >
-    //     Estimation App
-    //   </Text>
-
-    //   <Text
-    //     style={{ color: "blue" }}
-    //     onPress={() => {
-    //       const url =
-    //         "https://drive.google.com/file/d/0B6WIP-y6MAiEYm11b1hQN1Z0Sms/view";
-    //       if (Platform.OS == "web") {
-    //         window.open(url, "_blank");
-    //       } else {
-    //         Linking.openURL(url, "_blank");
-    //       }
-    //     }}
-    //   >
-    //     Screencast for Estimation App
-    //   </Text>
-    //   <View>
-    //     <Text style={styles.text}>Your email is {email ? email : ""}</Text>
-    //   </View>
-     
-    // </View>
-
-    //http://www.forteworks.com/forteworks-16.9.19/games/images/spaceshooter.jpg
+      
+    </ScrollView>
+ 
   );
 };
 

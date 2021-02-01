@@ -105,7 +105,18 @@ function experienceNavigator() {
 }
 function tabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      initialRouteName="Skills"
+      barStyle={{marginBottom:30,fontSize:40}}
+      tabBarOptions={
+        {
+          labelStyle: {
+            fontSize:30,
+            padding:15
+          }
+        }
+      }
+    >
       <Tab.Screen name="Skills" component={skillsNavigator} />
       <Tab.Screen name="Experience" component={experienceNavigator} />
     </Tab.Navigator>
