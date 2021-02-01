@@ -1,5 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "http://www.forteworks.com/web-build",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -30,6 +31,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "sharp-cli": "^1.14.1",
     "yup": "^0.32.8"
   },
   "devDependencies": {

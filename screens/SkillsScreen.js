@@ -42,11 +42,12 @@ const SkillsScreen = (props) => {
       </View>
     );
   }
-  const skillsDescription = `My primary focus is now on react-native. I've had ten years of experience with a variety of technology. Javascript, PHP, MySQL, javascript, css, Docker, GoLang, Swift, various frameworks, but now I believe it is time to really focus on one area. `
+  const skillsDescription = `My primary focus now is on react-native. My goal is to both get work primarily using it and to create my own applications. I've had ten years of experience with a variety of technology, including Javascript, PHP, MySQL, javascript, css, Docker, GoLang, Swift, various frameworks, but now I believe it is time to really focus on one area. I feel like react native gives me the best of both mobile and web development and it has great potential. `
   return (
     <ScrollView>
        <Card
         image=""
+        resizeMode="contain"
         title="Skills"
         description={skillsDescription}
         linkName=""
@@ -55,16 +56,18 @@ const SkillsScreen = (props) => {
       
       <Card
         image="http://www.forteworks.com/forteworks-16.9.19/games/images/spaceshooter.jpg"
+        resizeMode="contain"
         title="Games"
-        description="A set of games created with Panda.js, which I customized to fit both the customer branding specifications and to hadnle gesture recognition."
+        description="A set of games created with Panda.js, which I customized while working at Codigo, to fit both the customer branding specifications and to handle gesture recognition."
         linkName="Games"
         linkURL="http://www.forteworks.com/forteworks-16.9.19/games/index-games.php"
       ></Card>
 
       <Card
         image="http://www.forteworks.com/forte_2017.5.14/img/rough_est.png"
+        resizeMode="contain"
         title="Estimation App"
-        description="An app created with vanilla javascript that lets you calculate tasks and materials into an estimate of work."
+        description="An app I created to learn about web apps with offline capabilities, using vanilla javascript. It lets you calculate tasks and materials into an estimate of work. While it is not beautiful, it is definitely functional."
         linkName="Estimation App"
         linkURL="http://www.forteworks.com/roughest/"
       ></Card>
