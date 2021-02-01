@@ -20,6 +20,11 @@ const FormStyles = StyleSheet.create({
     image: {
       width: 100,
       height: 100,
+      borderRadius:20,
+      boxShadow:'2px 2px #dddddd',
+      margin:30
+      
+      
     },
     inputBox: {
       width: 300,
@@ -28,6 +33,11 @@ const FormStyles = StyleSheet.create({
       padding: 16,
       fontSize: 16,
       marginVertical: 10,
+      outline:0,
+      outlineColor: 0,
+      outlineStyle: 'none',
+      outlineWidth: 0
+
     },
     button: {
       width: 300,
@@ -60,6 +70,24 @@ const FormStyles = StyleSheet.create({
     error: {
         color: 'red',
         textAlign: 'center'
+    },
+    warning_wrapper:{
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center'
+    },
+    warning_text: {
+      fontSize:18,
+      margin:30,
+      color:"#777777"
+    },
+    redirect_button:{
+      fontSize:40,
+      margin:30,
+      padding:30,
+      borderRadius: 10,
+      borderWidth:1,
+      borderColor:"#000000"
     }
   });
 

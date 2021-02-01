@@ -63,7 +63,7 @@ const HomeScreen = (navData) => {
                 if (result.success) {
                   try {
                     await AsyncStorage.setItem("token", result.token);
-                    navData.navigation.navigate("Tabs");
+                    navData.navigation.navigate("Bayon");
                   } catch (error) {
                     console.log(error);
                   }
@@ -78,7 +78,7 @@ const HomeScreen = (navData) => {
             <View style={styles.container}>
               <View style={styles.logo}>
                 <Image
-                  source={require("../assets/icon.png")}
+                  source={require("../assets/bayon_forte.jpg")}
                   style={styles.image}
                 />
               </View>
@@ -103,6 +103,7 @@ const HomeScreen = (navData) => {
                   onChangeText={props.handleChange("password")}
                   value={props.values.password}
                   onBlur={props.handleBlur("password")}
+                  
                 />
                 <Text style={styles.error}>
                   {props.touched.password && props.errors.password}
@@ -134,40 +135,4 @@ const HomeScreen = (navData) => {
 };
 
 export default HomeScreen;
-
-// import React, { useEffect } from "react";
-// import { Button, Text, View } from "react-native";
-// import { useDispatch, useSelector } from "react-redux";
-// import * as statusAction from "../redux/actions/statusAction";
-
-// function HomeScreen({ navigation }) {
-//   //--- instead of PASSING data from the navigator , FETCH it from the Screen.
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(statusAction.fetchStatus());
-//   }, [dispatch]);
-
-//   var auth = useSelector((state) => state.status.authorized);
-
-//   //TEST: auth = true;
-//   //IF yes Use to show/hide TABS button OR BETTER redirect to TABS:
-//   console.log("App.js HomeScreen(): auth:", auth);
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <Text>Splash Page</Text>
-//       {/** ====================================== */}
-//       <Text>Login Form Here</Text>
-//       {/** ====================================== */}
-//       <Text>Not Signed up yet?</Text>
-//       <Button
-//         onPress={() => navigation.navigate("Register")}
-//         title="Register"
-//       />
-//       <Text>upon successful login go to Tabs ? </Text>
-//       {auth && (
-//         <Button onPress={() => navigation.navigate("Tabs")} title="Tabs" />
-//       )}
-//     </View>
-//   );
-// }
-// export default HomeScreen;
+ 

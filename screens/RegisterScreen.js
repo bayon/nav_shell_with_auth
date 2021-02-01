@@ -47,7 +47,7 @@ const RegisterScreen = (navData) => {
                 if (result.success) {
                   try {
                     await AsyncStorage.setItem("token", result.token);
-                    navData.navigation.navigate("Tabs");
+                    navData.navigation.navigate("Bayon");
                   } catch (error) {
                     console.log(error);
                   }
@@ -63,7 +63,7 @@ const RegisterScreen = (navData) => {
             <View style={styles.container}>
               <View style={styles.logo}>
                 <Image
-                  source={require("../assets/icon.png")}
+                  source={require("../assets/bayon_forte.jpg")}
                   style={styles.image}
                 />
               </View>

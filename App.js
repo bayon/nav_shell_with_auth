@@ -6,11 +6,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import GreenScreen from "./screens/GreenScreen";
+import ExperienceScreen from "./screens/ExperienceScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LogoutScreen from './screens/LogoutScreen';
-import RedScreen from "./screens/RedScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import SkillsScreen from "./screens/SkillsScreen";
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,10 +46,10 @@ function homeNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerLeft: () => <HeaderLeft />,
-        headerRight: () => <HeaderRight />,
+        
       }}
     >
-      <Stack.Screen name="Home/Login" component={HomeScreen} />
+      <Stack.Screen name="Bayon Forte" component={HomeScreen} />
     </Stack.Navigator>
   );
 }
@@ -57,39 +57,16 @@ function homeNavigator() {
 function registerNavigator() {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerLeft: null,
-        headerRight: null,
-      }}
+    screenOptions={{
+      headerLeft: () => <HeaderLeft />,
+    }}
     >
       <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   );
 }
 
-function redNavigator() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerLeft: () => <HeaderLeft />,
-      }}
-    >
-      <Stack.Screen name="Red" component={RedScreen} />
-    </Stack.Navigator>
-  );
-}
 
-function greenNavigator() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerLeft: () => <HeaderLeft />,
-      }}
-    >
-      <Stack.Screen name="Green" component={GreenScreen} />
-    </Stack.Navigator>
-  );
-}
  
 function logoutNavigator() {
   return (
@@ -103,12 +80,34 @@ function logoutNavigator() {
   );
 }
  
+function skillsNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerLeft: () => <HeaderLeft />,
+      }}
+    >
+      <Stack.Screen name="Skills" component={SkillsScreen} />
+    </Stack.Navigator>
+  );
+}
 
+function experienceNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerLeft: () => <HeaderLeft />,
+      }}
+    >
+      <Stack.Screen name="Experience" component={ExperienceScreen} />
+    </Stack.Navigator>
+  );
+}
 function tabNavigator() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Red" component={redNavigator} />
-      <Tab.Screen name="Green" component={greenNavigator} />
+      <Tab.Screen name="Skills" component={skillsNavigator} />
+      <Tab.Screen name="Experience" component={experienceNavigator} />
     </Tab.Navigator>
   );
 }
@@ -117,12 +116,12 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home">
-          <Drawer.Screen name="Home" component={homeNavigator} />
-          <Drawer.Screen name="Tabs" component={tabNavigator} />
+        <Drawer.Navigator initialRouteName="Login">
+          
+          <Drawer.Screen name="Bayon" component={tabNavigator} />
           <Drawer.Screen name="Login" component={homeNavigator} />
-          <Drawer.Screen name="Logout" component={logoutNavigator} />
           <Drawer.Screen name="Register" component={registerNavigator} />
+          <Drawer.Screen name="Logout" component={logoutNavigator} />
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
