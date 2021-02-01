@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
-import { Button, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import { useDispatch } from 'react-redux';
 import * as authAction from "../redux/actions/authAction";
 
@@ -12,9 +12,10 @@ function LogoutScreen({navigation}) {
   // Then offer direction back to login again.
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-       
+      
+       <Text>Are you sure you want to Logout?</Text>
       <Button 
-      title="Are you sure you want to Logout?"
+      title="Logout"
       onPress={ () => {
         
         dispatch(authAction.logoutUser())

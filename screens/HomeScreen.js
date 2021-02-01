@@ -33,8 +33,8 @@ const HomeScreen = (navData) => {
   if (auth) {
     return (
       <View>
-        <Text>Already Logged In</Text>
-        <Text>Log Out?</Text>
+        <Text>You are already logged in.</Text>
+        <Text>Do you want to log out?</Text>
         <Button
         onPress={() => navData.navigation.navigate("Logout")}
         title="Logout"

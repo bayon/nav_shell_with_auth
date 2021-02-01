@@ -35,7 +35,7 @@ const HeaderRight = () => {
       name="login"
       size={24}
       onPress={() => {
-        navigation.navigate("Home");
+        navigation.navigate("Logout");
       }}
     />
   );
